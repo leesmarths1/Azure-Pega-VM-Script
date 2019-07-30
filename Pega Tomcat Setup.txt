@@ -47,11 +47,16 @@ sudo systemctl start tomcat
 
 sudo systemctl enable tomcat
 
+sudo firewall-cmd --permanent --add-port 5701-5800/tcp
+sudo firewall-cmd --permanent --add-port 9300-9399/tcp
 sudo firewall-cmd --zone=public --add-port=8080/tcp --permanent
 sudo firewall-cmd --zone=public --add-port=80/tcp --permanent
+sudo firewall-cmd --permanent --add-port=433/tcp
+sudo firewall-cmd --permanent --add-port=9004/tcp
 sudo firewall-cmd --reload
 
 sudo systemctl restart tomcat
+
 
 *******************************Manual Start Stop Of Tomcat Server*****************
 
@@ -95,3 +100,28 @@ sudo mv server.xml /opt/tomcat/conf/server.xml
 sudo mv mssql-jdbc-6.2.2.jre8.jar /opt/tomcat/lib/mssql-jdbc-6.2.2.jre8.jar
 
 ********************************************************
+
+sudo mv prconfig.xml /opt/tomcat/webapps/prweb/WEB-INF/classes/
+
+********************************File system Mount**********************
+
+sudo yum -y install cifs-utils
+sudo mkdir /azfileshare
+sudo chmod 755 /azfileshare
+
+sudo mount -t cifs //lssboxpega74fsharesa.file.core.windows.net/pegalogs /azfileshare -o vers=3.0, username=lssboxpega74fsharesa ,password=k7yEnYdCKCsQadgPrDLt/eszbdxW5NuiHrwLlAgB5v739nF3kOWrEu8l9mzZIItwOrpoBfzZfBxiLd3GCPX34Q== , sec=ntlmssp
+
+
+sudo df -ThP /azfileshare
+
+sudo firewall-cmd --permanent --add-port 5701-5800/tcp
+sudo firewall-cmd --permanent --add-port 9300-9399/tcp
+
+300-9399
+
+sudo mkdir /pdffileimporter
+sudo chmod 755 /pdffileimporter
+
+
+sudo firewall-cmd --permanent --add-port=5502/tcp
+sudo firewall-cmd --permanent --add-port=1502/tcp
